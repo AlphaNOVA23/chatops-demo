@@ -16,6 +16,8 @@ def slack_command():
     if data.get("command") == "/deploy":
         trigger_github_action()
         return jsonify({"text": "🚀 Deployment triggered from Slack!"})
+    else:
+        return jsonify({"text": "❌ Unknown command!"})
 
 def trigger_github_action():
     url = f"https://api.github.com/repos/{AlphaNOVA23}/{chatops-demo}/actions/workflows/deploy.yml/dispatches"

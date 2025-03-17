@@ -10,6 +10,10 @@ GITHUB_PAT = os.getenv("GITHUB_PAT")  # Store GitHub Token in ENV variable
 REPO_OWNER = "YOUR_GITHUB_USERNAME"
 REPO_NAME = "chatops-demo"
 
+@app.route("/", methods=["GET"])
+def home():
+    return "✅ Slack Listener is Running!"
+
 @app.route("/slack", methods=["POST"])
 def slack_command():
     data = request.form
@@ -20,11 +24,11 @@ def slack_command():
         return jsonify({"text": "❌ Unknown command!"})
 
 def trigger_github_action():
-    url = f"https://api.github.com/repos/{AlphaNOVA23}/{chatops-demo}/actions/workflows/deploy.yml/dispatches"
+    url = f"https://api.github.com/repos/AlphaNOVA23/chatops-demo/actions/workflows/deploy.yml/dispatches"
     headers = {"Authorization": f"token {GITHUB_PAT}", "Accept": "application/vnd.github.v3+json"}
     data = {"ref": "main"}
     requests.post(url, headers=headers, json=data)
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
 

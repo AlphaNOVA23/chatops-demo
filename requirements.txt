@@ -1,0 +1,21 @@
+pip install flask (first create venv)
+
+pip install selenium
+
+ngrok.exe to expose localhost to internet (ngrok http <flask port>)
+
+chromedriver (added to path or in this directory) incase there are errors the selenium script
+
+slack account, ngrok account, github account
+
+create workspace through github actions with two yml files --> deploy.yml for /deploy and slack-notify.yml for slack notifications
+
+create a new slack app and install it to the workspace - app--> chatops-bot with /deploy and /test as its two main commands
+
+allow slack api webhook, github actions webhook and add them all to secrets inside the repository
+
+will need to add these tokens/webhook to env each time the terminal is opened fresh
+
+some important exec commands:
+python selenium_test.py
+python slack_listener.py
